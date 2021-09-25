@@ -9,11 +9,10 @@ class INode<T> {
   }
 }
 
-class LinkedList<T> {
-  head: INode<T>;
-  tail: INode<T>;
+export class LinkedList<T> {
+  private head: INode<T>;
+  private tail: INode<T>;
   length: number = 0;
-  
   
   constructor(value: T) {
     const node = new INode<T>(value)
@@ -37,22 +36,42 @@ class LinkedList<T> {
   }
   
   insert(index: number, value: T) {
+    if (index <= 0) {
+      return this.prepend(value)
+    }
+    if (index >= this.length) {
+      return this.append(value)
+    }
+    const newNode = new INode<T>(value);
+    let node: INode<T> = this.traverseToIndex(index - 1)
+    newNode.next = node.next;
+    node.next = newNode;
+    this.length++
+  }
+  
+  remove(index: number) {
+    if (index <= 0) {
+      this.head = this.head.next;
+    } else if (index >= this.length - 1) {
+      const last = this.traverseToIndex(this.length - 2)
+      last.next = null
+      this.tail = last;
+    } else {
+      const prevNode = this.traverseToIndex(index - 1)
+      const unwantedNode = prevNode.next
+      prevNode.next = unwantedNode.next;
+    }
+    this.length--
+  }
+  
+  private traverseToIndex(index: number) {
     let current = 0;
-    let node: null | INode<T> = this.head;
-    while (current < index - 1 && node.next !== null) {
+    let node: INode<T> = this.head;
+    while (current < index) {
       node = node.next;
       current++
     }
-    const newNode = new INode<T>(value);
-    newNode.next = node.next;
-    node.next = newNode;
+    return node
   }
 }
 
-const myNumLinkedList = new LinkedList<number>(5)
-
-myNumLinkedList.append(20)
-myNumLinkedList.prepend(0)
-myNumLinkedList.insert(2, 10)
-
-console.log(JSON.stringify(myNumLinkedList));
