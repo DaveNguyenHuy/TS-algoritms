@@ -46,7 +46,7 @@ test('Linked List =>', () => {
     length: 4,
   })
   
-  myLinkedList.insert(4, 4) // 0 -> 1 -> 2 -> 3
+  myLinkedList.insert(4, 4) // 0 -> 1 -> 2 -> 3 -> 4
   expect(myLinkedList).toEqual({
     head: {
       value: 0, next: { value: 1, next: { value: 2, next: { value: 3, next: { value: 4, next: null }}}}
