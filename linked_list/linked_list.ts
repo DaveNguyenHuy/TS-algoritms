@@ -50,6 +50,12 @@ export class LinkedList<T> {
   }
 
   remove(index: number) {
+    if (!this.length) return;
+    if (this.length === 1) {
+      this.length = 0;
+      this.head = null;
+      this.tail = null;
+    }
     if (index <= 0) {
       this.head = this.head.next;
     } else if (index >= this.length - 1) {
@@ -64,6 +70,23 @@ export class LinkedList<T> {
     this.length--;
   }
 
+  reverse() {
+    if (!this.head.next) {
+      return;
+    }
+    let firstNode = this.head;
+    let secondNode = this.head.next;
+    this.tail = this.head;
+    while (secondNode) {
+      const temp = secondNode.next;
+      secondNode.next = firstNode;
+      firstNode = secondNode;
+      secondNode = temp;
+    }
+    this.head.next = null;
+    this.head = firstNode;
+  }
+
   private traverseToIndex(index: number) {
     let current = 0;
     let node: INode<T> = this.head;
@@ -72,5 +95,15 @@ export class LinkedList<T> {
       current++;
     }
     return node;
+  }
+
+  printList(): Array<T> {
+    const arr = [];
+    let currentNode = this.head;
+    while (currentNode) {
+      arr.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+    return arr;
   }
 }

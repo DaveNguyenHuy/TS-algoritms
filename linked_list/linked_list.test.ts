@@ -134,10 +134,24 @@ test('Linked List =>', () => {
     length: 3,
   });
 
-  myLinkedList.remove(2); // 1 -> 2
+  myLinkedList.reverse(); // 4 -> 2 -> 1
+  console.log(myLinkedList.printList());
   expect(myLinkedList).toEqual({
     head: {
+      value: 4,
+      next: { value: 2, next: { value: 1, next: null } },
+    },
+    tail: {
       value: 1,
+      next: null,
+    },
+    length: 3,
+  });
+
+  myLinkedList.remove(2); // 4 -> 2
+  expect(myLinkedList).toEqual({
+    head: {
+      value: 4,
       next: { value: 2, next: null },
     },
     tail: {
@@ -147,14 +161,14 @@ test('Linked List =>', () => {
     length: 2,
   });
 
-  myLinkedList.remove(1); // 1
+  myLinkedList.remove(1); // 4
   expect(myLinkedList).toEqual({
     head: {
-      value: 1,
+      value: 4,
       next: null,
     },
     tail: {
-      value: 1,
+      value: 4,
       next: null,
     },
     length: 1,
