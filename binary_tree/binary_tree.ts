@@ -24,6 +24,9 @@ export class BinaryTree<T> {
     }
     let pointer: null | BinaryTreeNode<T> = this.root;
     while (true) {
+      if (pointer.value === value) {
+        throw new Error('duplicate value');
+      }
       if (pointer.value < value) {
         if (pointer.right) pointer = pointer.right;
         else return (pointer.right = new BinaryTreeNode<T>(value));

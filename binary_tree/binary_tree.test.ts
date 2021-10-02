@@ -23,6 +23,16 @@ describe('Binary Tree', () => {
     });
   });
 
+  test('insert duplicate value => error', () => {
+    tree.insert(5);
+    tree.insert(10);
+    tree.insert(8);
+    function insertDuplicate() {
+      tree.insert(10);
+    }
+    expect(insertDuplicate).toThrow('duplicate value');
+  });
+
   test('insert multiple nodes', () => {
     tree.insert(0);
     tree.insert(1);
